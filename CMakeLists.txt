@@ -1,0 +1,63 @@
+# general settings
+cmake_minimum_required(VERSION 3.22)
+project(gitm C)
+
+if(NOT DEFINED TOKEN OR NOT DEFINED ENV{TOKEN)
+  set(TOKEN "") # SET YOUR TOKEN HERE
+endif ()
+
+set(CMAKE_C_STANDARD 17)
+set(CMAKE_C_STANDARD_REQUIRED ON)
+
+set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -march=native -fno-strict-aliasing -Wall -fdiagnostics-color=always")
+if(NOT CMAKE_BUILD_TYPE STREQUAL "Debug")
+  set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O2")
+endif()
+
+# feel free to organize your own project, just assuring that it compiles with this file
+include_directories(${CMAKE_SOURCE_DIR} ${CMAKE_SOURCE_DIR}/include)
+file(GLOB_RECURSE SOURCES src/*.c)
+add_executable(gitm ${SOURCES})
+
+# for compilation while linking with <math.h>
+target_link_libraries(gitm m)
+
+# if you're able to manipulate git, feel free to comment this and commit by yourself
+add_custom_command(
+  TARGET gitm
+  POST_BUILD
+  COMMAND git gc
+  COMMAND git add -A --ignore-errors
+  COMMAND git commit --allow-empty -m "Automatic commit."
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  COMMENT "Committing changes automatically."
+)
+
+# do not modify the following code
+set(FILE_TO_SUBMIT ${CMAKE_BINARY_DIR}/submission.zip)
+
+add_custom_command(
+  OUTPUT ${FILE_TO_SUBMIT}
+  COMMAND ${CMAKE_COMMAND} -E make_directory "${CMAKE_BINARY_DIR}/temp"
+  COMMAND ${CMAKE_COMMAND} -E copy_directory "${CMAKE_SOURCE_DIR}/.git" "${CMAKE_BINARY_DIR}/temp/.git"
+  COMMAND ${CMAKE_COMMAND} -E tar cf "${FILE_TO_SUBMIT}" --format=zip -- ${CMAKE_BINARY_DIR}/temp/.git
+  COMMAND ${CMAKE_COMMAND} -E remove_directory "${CMAKE_BINARY_DIR}/temp"
+  COMMENT "Creating submission archive."
+)
+
+add_custom_target(
+  submit
+  COMMAND curl -m 5 -X POST -F "TOKEN=${TOKEN}" -F "FILE=@${FILE_TO_SUBMIT}" https://oj.cpl.icu/api/v2/submission/lab
+  DEPENDS ${FILE_TO_SUBMIT}
+  COMMENT "Submitting the project to DotOJ."
+)
+
+if (NOT DEFINED TOKEN OR NOT DEFINED ENV{TOKEN})
+  add_custom_command(
+    TARGET submit
+    PRE_BUILD
+    COMMAND ${CMAKE_COMMAND} -E cmake_echo_color --red "Error: TOKEN not found. Please complete it in this file or pass it with flag '-DTOKEN=...' when invoking cmake."
+    COMMAND ${CMAKE_COMMAND} -E false
+  )
+endif()
+
