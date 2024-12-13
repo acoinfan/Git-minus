@@ -22,6 +22,9 @@ add_executable(gitm ${SOURCES})
 # for compilation while linking with <math.h>
 target_link_libraries(gitm m)
 
+# tester is independent from gitm and do NOT mix them up!
+add_executable(tester test/tester.c)
+
 # if you're able to manipulate git, feel free to comment this and commit by yourself
 add_custom_command(
   TARGET gitm
