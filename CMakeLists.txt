@@ -36,9 +36,6 @@ endif ()
 # <math.h> support (unnecessary if you don't use it)
 target_link_libraries(${PROJECT_NAME} m)
 
-# tester is independent from gitm and do NOT mix them up!
-add_executable(tester test/tester.c)
-
 # if you're able to manipulate git, feel free to comment this and commit by yourself
 add_custom_command(
     TARGET ${PROJECT_NAME}
