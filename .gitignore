@@ -1,9 +1,16 @@
 *
+
 !include/
 !include/*.h
 
 !src/
 !src/*.c
+
+!external
+!external/*
+!external/include/*
+!external/include/openssl/*
+!external/lib/*
 
 !.gitignore
 !CMakeLists.txt
