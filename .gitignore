@@ -1,4 +1,9 @@
-.idea/
-cmake-build-debug/
-.vscode/
-build/
+*
+!include/
+!include/*.h
+
+!src/
+!src/*.c
+
+!.gitignore
+!CMakeLists.txt
