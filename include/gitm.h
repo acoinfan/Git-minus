@@ -54,7 +54,7 @@ int copy_file(char const *src_path, char const *dst_path);
  * @param old_path The path to the old file.
  * @param new_path The path to the new file.
  * @return 0 if the file is moved successfully, -1 otherwise.
- * @note The TA didn't use this function in the reference solution.
+ * @note The TA didn't use this function in the reference solution, but it's worthwhile to learn how the function creates intermediate directories briefly.
  */
 int rename_file(char const *old_path, char const *new_path);
 
