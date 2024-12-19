@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
   }
   if (!strcmp(argv[1], "version")) {
     printf("%s",
-#include "icon.txt"
+#include "../icon.txt"
     );
   }
   return 0;
