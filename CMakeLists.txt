@@ -52,6 +52,7 @@ set(FILE_TO_SUBMIT ${CMAKE_BINARY_DIR}/submission.zip)
 
 add_custom_command(
     OUTPUT ${FILE_TO_SUBMIT}
+    COMMAND ${CMAKE_COMMAND} -E remove -f ${FILE_TO_SUBMIT}
     COMMAND ${CMAKE_COMMAND} -E make_directory ${CMAKE_BINARY_DIR}/temp
     COMMAND ${CMAKE_COMMAND} -E copy_directory ${CMAKE_SOURCE_DIR}/.git ${CMAKE_BINARY_DIR}/temp/.git
     COMMAND ${CMAKE_COMMAND} -E tar cf "${FILE_TO_SUBMIT}" --format=zip -- ${CMAKE_BINARY_DIR}/temp/.git
