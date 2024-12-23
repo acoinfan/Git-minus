@@ -9,20 +9,31 @@ bool exists(char const *path) {
 
 __attribute__((unused))
 int copy_file(char const *src_path, char const *dest_path) {
+  static char const DELIM = '/';
+  char cwd[PATH_MAX];
+  if (getcwd(cwd, PATH_MAX) == NULL) {
+    ERROR("failed to get the current working directory\n");
+    return -1;
+  }
+  char real_path[PATH_MAX];
+  if (dest_path[0] != DELIM) {
+    snprintf(real_path, PATH_MAX, "%s/%s", cwd, dest_path);
+  } else {
+    strncpy(real_path, dest_path, PATH_MAX);
+  }
+  char path[PATH_MAX];
+  for (char const *slash = strchr(real_path + 1, DELIM); slash != NULL; slash = strchr(slash + 1, DELIM)) {
+    strncpy(path, real_path, slash - real_path);
+    path[slash - real_path] = '\0';
+    if (!exists(path) && make_directory(path) != 0) {
+      ERROR("failed to create directory %s\n", path);
+      return -1;
+    }
+  }
   FILE *src = fopen(src_path, "rb");
   if (src == NULL) {
     ERROR("failed to open file %s\n", src_path);
     return -1;
-  }
-  char path[PATH_MAX];
-  for (char const *slash = strchr(dest_path, '/'); *slash != '\0'; slash = strchr(slash + 1, '/')) {
-    strncpy(path, dest_path, slash - dest_path);
-    path[slash - dest_path] = '\0';
-    if (!exists(path) && make_directory(path) != 0) {
-      ERROR("failed to create directory %s\n", path);
-      fclose(src);
-      return -1;
-    }
   }
   FILE *dest = fopen(dest_path, "wb");
   if (dest == NULL) {

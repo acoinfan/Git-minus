@@ -42,8 +42,8 @@ bool exists(char const *path);
 
 /**
  * @brief Copies a file from src_path to dst_path.
- * @param src_path The path to the source file.
- * @param dst_path The path to the destination file.
+ * @param src_path The path to the source file, whose delimiter should be '/'.
+ * @param dst_path The path to the destination file, whose delimiter should be '/'.
  * @return 0 if the file is copied successfully, -1 otherwise.
  * @note The TA didn't use this function in the reference solution.
  */
