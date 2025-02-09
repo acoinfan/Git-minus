@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.22)
 project(gitm C)
 
 if (NOT DEFINED TOKEN)
-  set(TOKEN "") # SET YOUR TOKEN HERE
+  set(TOKEN "eKqshdZh") # SET YOUR TOKEN HERE
 endif ()
 
 set(CMAKE_C_STANDARD 17)
@@ -62,7 +62,7 @@ add_custom_command(
 
 add_custom_target(
     submit
-    COMMAND curl -m 5 -X POST -F "TOKEN=${TOKEN}" -F "FILE=@${FILE_TO_SUBMIT}" https://oj.cpl.icu/api/v2/submission/lab
+    COMMAND curl -m 5 -X POST -F "TOKEN=${TOKEN}" -F "FILE=@${FILE_TO_SUBMIT}" https://public.oj.cpl.icu/api/v2/submission/lab
     DEPENDS ${FILE_TO_SUBMIT}
     COMMENT "Submitting the project to DotOJ."
 )

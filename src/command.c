@@ -110,25 +110,17 @@ int checkout(char *id){
 
 
 void print_log(void){
-    FILE *log = fopen(".gitm/log.txt", "r");
-    char id[HASH_LEN], parent[HASH_LEN], message[MESSAGE_LEN], timestamps[TIMESTAMP_LEN], mode[MODE_LEN];
-    while (1){
-        int res = fscanf(log, "%s %s %s %s\n", id, parent, message, mode);
-        if (res != 4)
-            break;
-
-        if (fgets(timestamps, TIMESTAMP_LEN, log) == NULL)
-            break;
-        timestamps[strcspn(timestamps, "\n")] = '\0';
-
-        printf("commit %s\n", id);
-        if (strcmp("merge", mode) == 0)
-            printf("Merge: %.7s %.7s\n", id, parent);
-        printf("Date: %s\n", timestamps);
-        printf("%s\n", message);
-        printf("\n");
+    CTree *base = read_log(".gitm/log.txt");
+    CTree *head = read_head(base, ".gitm/head.txt");
+    
+    CTree *cnt = head;
+    while(cnt != NULL){
+        printf("commit %s\n", cnt->id);
+        printf("Date: %s\n", cnt->timestamp);
+        printf("%s\n\n", cnt->message);
+        cnt = cnt->parent;
     }
-    fclose(log);
+    return;
 }
 
 void test(void){
