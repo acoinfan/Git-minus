@@ -6,6 +6,7 @@ CTree* insert_CTree(CTree *head, char *parent, char *id, char *message, char *ti
         return head;
     }
 
+    printf("search %s\n", parent);
     CTree *parent_node = search_CTree(head, parent);
     assert(parent_node != NULL);
     CTree *node = new_CNode(id, message, timestamp, mode, parent_node, filetree);
