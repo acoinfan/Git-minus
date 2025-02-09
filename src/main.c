@@ -1,4 +1,5 @@
 #include "gitm.h"
+#include "command.h"
 
 int main(int argc, char *argv[]) {
   if (argc < 2) {
@@ -9,6 +10,26 @@ int main(int argc, char *argv[]) {
     printf("%s",
 #include "../icon.txt"
     );
+    return 0;
   }
-  return 0;
+  if (!strcmp(argv[1], "init")){
+    init();
+  }
+  if (!strcmp(argv[1], "commit")){
+    assert(argc == 3);
+    commit(argv[2]);
+  }
+  if (!strcmp(argv[1], "log")){
+    print_log();
+  }
+  if (!strcmp(argv[1], "checkout")){
+    assert(argc == 3);
+    checkout(argv[2]);
+  }
+  if (!strcmp(argv[1], "test")){
+    test();
+  }
+  if (!strcmp(argv[1], "clear")){
+    clear();
+  }
 }
