@@ -111,8 +111,8 @@ int checkout(char *id){
 
 
 void print_log(void){
+    // 利用log.txt构建CTree
     CTree *base = read_log(".gitm/log.txt");
-    printf("ok");
     CTree *head = read_head(base, ".gitm/head.txt");
     
     CTree *cnt = head;
