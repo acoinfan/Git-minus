@@ -48,7 +48,6 @@ void commit_all(FTree *node){
 }
 
 void checkout_all(FTree *node){
-    printf("%s\n", node->cwd);
     assert(exists(node->cwd));
 
     if (node->fileNum != 0){

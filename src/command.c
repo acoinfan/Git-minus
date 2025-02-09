@@ -105,12 +105,14 @@ int checkout(char *id){
     checkout_all(node);
 
     write_head(id, ".gitm/head.txt");
-    printf("Successfully Checkout: ID %s\n", id);
+    //printf("Successfully Checkout: ID %s\n", id);
+    return 0;
 }
 
 
 void print_log(void){
     CTree *base = read_log(".gitm/log.txt");
+    printf("ok");
     CTree *head = read_head(base, ".gitm/head.txt");
     
     CTree *cnt = head;
