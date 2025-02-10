@@ -139,6 +139,12 @@ void test(char *id){
     printf("------working dir------\n");
     print_filetree(cnt, 0);
 
+    if (compare_filetree(commit, cnt) == 0){
+        printf("same\n");
+    }
+    else{
+        printf("not same\n");
+    }
 }
 
 void clear(void){
