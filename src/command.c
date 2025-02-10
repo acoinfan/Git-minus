@@ -107,7 +107,7 @@ int checkout(char *id){
     checkout_all(node);
 
     write_head(id, ".gitm/head.txt");
-    printf("Successfully Checkout: ID %s\n", id);
+    // printf("Successfully Checkout: ID %s\n", id);
     return 0;
 }
 
