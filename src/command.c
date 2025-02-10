@@ -63,7 +63,7 @@ int commit(char *message){
 
     // 打印commit成功内容 (DEBUG用)
     //printf("------Commit Inf------\nid: %s\nmessage: %s\ntimestamp: %s\nmode: %s\nparent: %s\n", Cnode->id, Cnode->message, Cnode->timestamp, Cnode->mode, Cnode->parent->id);
-    ERROR("%s\n", id);
+    printf("%s\n", id);
     return 0;
 }
 
@@ -96,18 +96,20 @@ int checkout(char *id){
         return -1;
     }
 
-    FTree *cnt = malloc(sizeof(FTree));
-    fill_filetree(".", cnt);
-    if (compare_filetree(cnt, target)){
-        ERROR("Dirty Checkout: Ignore\n");
-        return -1;
-    }
+    // dirty checkout检测: 未完成
+
+    // FTree *cnt = malloc(sizeof(FTree));
+    // fill_filetree(".", cnt);
+    // if (compare_filetree(cnt, target)){
+    //     ERROR("Dirty Checkout: Ignore\n");
+    //     return -1;
+    // }
 
     clean_directory(".");
     checkout_all(target);
 
     write_head(id, ".gitm/head.txt");
-    // printf("Successfully Checkout: ID %s\n", id);
+    ERROR("Successfully Checkout: ID %s\n", id);
     return 0;
 }
 
