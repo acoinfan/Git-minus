@@ -96,14 +96,14 @@ int checkout(char *id){
         return -1;
     }
 
-    // dirty checkout检测: 未完成
+    // dirty checkout检测
 
-    // FTree *cnt = malloc(sizeof(FTree));
-    // fill_filetree(".", cnt);
-    // if (compare_filetree(cnt, target)){
-    //     ERROR("Dirty Checkout: Ignore\n");
-    //     return -1;
-    // }
+    FTree *cnt = malloc(sizeof(FTree));
+    fill_filetree(".", cnt);
+    if (compare_filetree(cnt, target)){
+        ERROR("Dirty Checkout: Ignore\n");
+        return -1;
+    }
 
     clean_directory(".");
     checkout_all(target);
