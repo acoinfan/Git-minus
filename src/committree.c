@@ -82,7 +82,8 @@ CTree *read_log(char *PATH){
         
         FTree *filetree = malloc(sizeof(FTree));
         assert(filetree != NULL);
-        read_filetree(log, filetree);
+
+        read_struct(id, filetree);
         head = insert_CTree(head, parent, id, message, timestamps, mode, filetree);
     }
     fclose(log);
