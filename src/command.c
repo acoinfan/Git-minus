@@ -71,29 +71,29 @@ int checkout(char *id){
     // 一些基础的逻辑判断
     if (!exists(".gitm")){
         ERROR("Checkout Error: Invalid repository\n");
-        return 1;
+        return -1;
     }
     if (!exists(".gitm/log.txt")){
         ERROR("Checkout Error: Invalid repository\n");
-        return 1;
+        return -1;
     }
     if (!exists(".gitm/files")){
         ERROR("Checkout Error: Invalid repository\n");
-        return 1;
+        return -1;
     }
     if (!exists(".gitm/struct")){
         ERROR("Checkout Error: Invalid repository\n");
-        return 1;
+        return -1;
     }
     if (!exists(".gitm/head.txt")){
         ERROR("Checkout Error: Invalid repository\n");
-        return 1;
+        return -1;
     }
 
     FTree *target = malloc(sizeof(FTree));
     if (read_struct(id, target)){
         ERROR("Checkout Error: Invalid commit ID %s\n", id);
-        return 1;
+        return -1;
     }
 
     // dirty checkout检测: 未完成
@@ -130,10 +130,14 @@ void print_log(void){
 }
 
 void test(char *id){
-    CTree *base = read_log(".gitm/log.txt");
-    //CTree *head = read_head(base, ".gitm/head.txt");
-    //printf("---head inf---\nid: %s\n", head->id);
-    print_commit_tree(base, 0);
+    FTree *commit = read_struct(id, commit);
+    FTree *cnt = malloc(sizeof(FTree));
+    fill_filetree(".", cnt);
+    printf("------commit to check------\n");
+    print_filetree(commit, 0);
+    printf("------working dir------\n");
+    print_filetree(cnt, 0);
+
 }
 
 void clear(void){
