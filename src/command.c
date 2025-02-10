@@ -1,19 +1,13 @@
 #include "command.h"
 
 int init(void){
+    int res = 0;
     if (!exists(".gitm")){
         make_directory(".gitm");
+        clear();
+        return 0;
     }
-
-    if (!exists(".gitm/struct")){
-        make_directory(".gitm/struct");
-    }
-
-    if (!exists(".gitm/files")){
-        make_directory(".gitm/files");
-    }
-    clear();
-    return 0;
+    return -1;
 }
 
 int commit(char *message){
