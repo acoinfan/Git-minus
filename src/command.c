@@ -48,9 +48,7 @@ int commit(char *message){
     // 获取本次提交的信息(无需获取parent)
     char id[HASH_LEN] = {}, timestamps[TIMESTAMP_LEN] = {}, mode[MODE_LEN] = "commit";
     timestamp(timestamps);
-    printf("time: %s\n", timestamps);
     sha1sum(id, timestamps, TIMESTAMP_LEN);
-    printf("%s\n", id);
 
     // 将工作文件夹中的文件存储在FTree中
     FTree *Fnode = malloc(sizeof(FTree));
