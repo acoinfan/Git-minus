@@ -3,7 +3,7 @@
 
 #include "gitm.h"
 
-#define MESSAGE_LEN 100
+#define MESSAGE_LEN 512
 
 // HASH_LEN = 41
 #define HASH_LEN ((SHA_SUM_LEN) + 1)
