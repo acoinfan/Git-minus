@@ -58,6 +58,7 @@ int commit(char *message){
 
     // 生成一个新CTree节点
     CTree *Cnode;
+    assert(head != NULL);
     Cnode = new_CNode(id, message, timestamps, mode, head, Fnode);
 
     // 将CTree写入log.txt
