@@ -123,3 +123,22 @@ CTree *read_head(CTree *node, char *PATH){
     printf("Debug: id: %s\n", id);
     return search_CTree(node, id);
 }
+
+void print_commit_tree(CTree *node, int level) {
+    if (node == NULL) {
+        return;
+    }
+
+    // 打印当前节点的 ID 前 7 位
+    for (int i = 0; i < level; i++) {
+        printf("    ");  // 打印层级缩进
+    }
+    printf("|-- Commit ID: %.7s\n", node->id);
+
+    // 如果有子树，则递归打印子树
+    if (node->subtree != NULL) {
+        for (int i = 0; node->subtree[i] != NULL; i++) {
+            print_commit_tree(node->subtree[i], level + 1);
+        }
+    }
+}

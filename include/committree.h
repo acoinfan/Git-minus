@@ -55,4 +55,5 @@ void write_head(char *id, char *PATH);
  */
 CTree *read_head(CTree *node, char *PATH);
 
+void print_commit_tree(CTree *node, int level);
 #endif

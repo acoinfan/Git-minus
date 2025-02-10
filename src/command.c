@@ -132,6 +132,7 @@ void test(char *id){
     CTree *base = read_log(".gitm/log.txt");
     CTree *head = read_head(base, id);
     printf("---head inf---\nid: %s\n", head->id);
+    print_commit_tree(base, 0);
 }
 
 void clear(void){
