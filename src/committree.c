@@ -133,7 +133,7 @@ void print_commit_tree(CTree *node, int level) {
     for (int i = 0; i < level; i++) {
         printf("    ");  // 打印层级缩进
     }
-    printf("|-- Commit ID: %.7s\n", node->id);
+    printf("|-- Commit ID: %s\n", node->id);
 
     // 如果有子树，则递归打印子树
     if (node->subtree != NULL) {
