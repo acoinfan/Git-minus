@@ -146,6 +146,9 @@ void clear(void){
     if (!exists(".gitm/files")){
         make_directory(".gitm/files");
     }
+    else{
+        clean_directory(".gitm/files");
+    }
 
     if (!exists(".gitm/struct")){
         make_directory(".gitm/struct");
