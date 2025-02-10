@@ -236,32 +236,59 @@ size_t get_file_size(FILE *file){
     return size;
 }
 
-int compare_filetree(FTree *node1, FTree *node2){
-    if (strcmp(node1->cwd, node2->cwd) != 0){
-        return 1;
+int compare_filetree(FTree *node1, FTree *node2) {
+    // 比较工作目录
+    if (strcmp(node1->cwd, node2->cwd) != 0) {
+        return 1;  // 不相等
     }
 
-    if (node1->fileNum != node2->fileNum){
-        return 1;
+    // 比较文件数量
+    if (node1->fileNum != node2->fileNum) {
+        return 1;  // 不相等
     }
 
-    for (int i = 0; i < node1->fileNum; i++){
-        if (is_same_pair(node1->fileList[i], node2->fileList[i]) != 0){
-            return 1;
+    // 比较文件列表，假设文件顺序不重要，可以先排序
+    // 对文件列表排序
+    qsort(node1->fileList, node1->fileNum, sizeof(Pair *), compare_files);
+    qsort(node2->fileList, node2->fileNum, sizeof(Pair *), compare_files);
+
+    for (int i = 0; i < node1->fileNum; i++) {
+        if (is_same_pair(node1->fileList[i], node2->fileList[i]) != 0) {
+            return 1;  // 文件不相同
         }
     }
 
-    if (node1->dirNum != node2->dirNum){
-        return 1;
+    // 比较目录数量
+    if (node1->dirNum != node2->dirNum) {
+        return 1;  // 不相等
     }
 
-    for (int i = 0; i < node1->dirNum; i++){
-        if (compare_filetree(node1->dirList[i], node2->dirList[i]) != 0){
-            return 1;
+    // 递归比较子目录，假设子目录顺序不重要，可以先排序
+    qsort(node1->dirList, node1->dirNum, sizeof(FTree *), compare_filetree_ptr);
+    qsort(node2->dirList, node2->dirNum, sizeof(FTree *), compare_filetree_ptr);
+
+    for (int i = 0; i < node1->dirNum; i++) {
+        if (compare_filetree(node1->dirList[i], node2->dirList[i]) != 0) {
+            return 1;  // 子目录不相同
         }
     }
 
-    return 0;
+    return 0;  // 全部相等
+}
+
+int compare_filetree_ptr(const void *a, const void *b) {
+    FTree *node1 = *(FTree **)a;  // 将指针转换为 FTree*
+    FTree *node2 = *(FTree **)b;  // 将指针转换为 FTree*
+
+    // 假设你希望按 cwd 字段的字典顺序排序
+    return strcmp(node1->cwd, node2->cwd);
+}
+
+int compare_files(const void *a, const void *b) {
+    Pair *node1 = *(Pair **)a;
+    Pair *node2 = *(Pair **)b;
+
+    return strcmp(node1->fileName, node2->fileName);
 }
 
 

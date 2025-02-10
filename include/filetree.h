@@ -94,6 +94,9 @@ void print_filetree(FTree *node, int level);
  */
 int compare_filetree(FTree *node1, FTree *node2);
 
+int compare_filetree_ptr(const void *a, const void *b);
+
+int compare_files(const void *a, const void *b);
 // // 只是一个存储所有文件的表，而不包含文件夹
 // void get_fileset(FTree *tree, FList *list);
 
