@@ -123,7 +123,7 @@ void print_log(void){
     while(cnt != NULL){
         printf("commit %s\n", cnt->id);
         printf("Date: %s\n", cnt->timestamp);
-        printf("%s.\n\n", cnt->message);
+        printf("%s\n\n", cnt->message);
         cnt = cnt->parent;
     }
     return;
