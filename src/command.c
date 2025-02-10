@@ -12,7 +12,7 @@ int init(void){
     if (!exists(".gitm/files")){
         make_directory(".gitm/files");
     }
-    printf("successfully init\n");
+    clear();
     return 0;
 }
 
