@@ -109,10 +109,6 @@ CTree *read_head(CTree *node, char *PATH){
     fscanf(file, "%s", id);
     fclose(file);
     
-    if (!strcmp("0", id)){
-        return NULL;
-    }
-    else{
-        return search_CTree(node, id);
-    }
+    printf("Debug: id");
+    return search_CTree(node, id);
 }
