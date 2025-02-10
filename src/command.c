@@ -71,7 +71,7 @@ int commit(char *message){
     commit_all(Fnode);
 
     // 打印commit成功内容 (DEBUG用)
-    // printf("------Commit Inf------\nid: %s\nmessage: %s\ntimestamp: %s\nmode: %s\n", Cnode->id, Cnode->message, Cnode->timestamp, Cnode->mode);
+    printf("------Commit Inf------\nid: %s\nmessage: %s\ntimestamp: %s\nmode: %s\n", Cnode->id, Cnode->message, Cnode->timestamp, Cnode->mode);
     return 0;
 }
 
