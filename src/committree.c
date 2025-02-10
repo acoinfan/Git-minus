@@ -129,7 +129,7 @@ void print_commit_tree(CTree *node, int level) {
         return;
     }
 
-    // 打印当前节点的 ID 前 7 位
+    // 打印当前节点的 ID
     for (int i = 0; i < level; i++) {
         printf("    ");  // 打印层级缩进
     }
