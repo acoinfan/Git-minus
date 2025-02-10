@@ -236,213 +236,30 @@ size_t get_file_size(FILE *file){
     return size;
 }
 
-int compare_filetree(FTree *node1, FTree *node2) {
-    // 比较工作目录
-    if (strcmp(node1->cwd, node2->cwd) != 0) {
-        return 1;  // 不相等
+int compare_filetree(FTree *node1, FTree *node2){
+    if (strcmp(node1->cwd, node2->cwd) != 0){
+        return 1;
     }
 
-    // 比较文件数量
-    if (node1->fileNum != node2->fileNum) {
-        return 1;  // 不相等
+    if (node1->fileNum != node2->fileNum){
+        return 1;
     }
 
-    // 比较文件列表，假设文件顺序不重要，可以先排序
-    // 对文件列表排序
-    qsort(node1->fileList, node1->fileNum, sizeof(Pair *), compare_files);
-    qsort(node2->fileList, node2->fileNum, sizeof(Pair *), compare_files);
-
-    for (int i = 0; i < node1->fileNum; i++) {
-        if (is_same_pair(node1->fileList[i], node2->fileList[i]) != 0) {
-            return 1;  // 文件不相同
+    for (int i = 0; i < node1->fileNum; i++){
+        if (is_same_pair(node1->fileList[i], node2->fileList[i]) != 0){
+            return 1;
         }
     }
 
-    // 比较目录数量
-    if (node1->dirNum != node2->dirNum) {
-        return 1;  // 不相等
+    if (node1->dirNum != node2->dirNum){
+        return 1;
     }
 
-    // 递归比较子目录，假设子目录顺序不重要，可以先排序
-    qsort(node1->dirList, node1->dirNum, sizeof(FTree *), compare_filetree_ptr);
-    qsort(node2->dirList, node2->dirNum, sizeof(FTree *), compare_filetree_ptr);
-
-    for (int i = 0; i < node1->dirNum; i++) {
-        if (compare_filetree(node1->dirList[i], node2->dirList[i]) != 0) {
-            return 1;  // 子目录不相同
+    for (int i = 0; i < node1->dirNum; i++){
+        if (compare_filetree(node1->dirList[i], node2->dirList[i]) != 0){
+            return 1;
         }
     }
 
-    return 0;  // 全部相等
+    return 0;
 }
-
-int compare_filetree_ptr(const void *a, const void *b) {
-    FTree *node1 = *(FTree **)a;  // 将指针转换为 FTree*
-    FTree *node2 = *(FTree **)b;  // 将指针转换为 FTree*
-
-    // 假设你希望按 cwd 字段的字典顺序排序
-    return strcmp(node1->cwd, node2->cwd);
-}
-
-int compare_files(const void *a, const void *b) {
-    Pair *node1 = *(Pair **)a;
-    Pair *node2 = *(Pair **)b;
-
-    return strcmp(node1->fileName, node2->fileName);
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// // 对于已存储的文件而言，filelist就是其对应的hashmap, 默认为 "."
-// void get_filelist(const char *PATH, FList *filelist){
-//     DIR *dir = opendir(PATH);
-//     if (dir == NULL) {
-//         perror("opendir");
-//         return;
-//     }
-
-//     int count = 0;
-//     struct dirent *entry;
-//     while ((entry = readdir(dir)) != NULL) {
-//         if (strcmp(entry->d_name, ".") != 0 && strcmp(entry->d_name, "..") != 0 &&
-//             strcmp(entry->d_name, ".gitm") != 0 && strcmp(entry->d_name, "gitm") != 0) {
-//             if (count == 0){
-//                 filelist->list = malloc(sizeof(char *));
-//                 assert(filelist->list != NULL);
-//             }
-//             else{
-//                 filelist->list = realloc(filelist->list, (count + 1) * sizeof(char *));
-//                 assert(filelist->list != NULL);
-//             }
-//             filelist->list[count] = malloc(ID_LEN * sizeof(char));
-//             strcpy(filelist->list[count], entry->d_name);
-//             count++;
-//         }
-//     }
-//     closedir(dir);
-//     filelist->num = count;
-//     return;
-// }
-
-// // PATH传入filelist对应的文件所在路径 对应于working_list 应为 ./
-// void hash_filelist(char *PATH, FileList *filelist, FileList *newlist){
-//     int num = filelist->num;
-//     newlist->num = num;
-//     char cnt[PATH_LEN] = {};
-//     newlist->list = malloc(num * sizeof(char *));
-//     for (int i = 0; i < num; i++){
-//         strcpy(cnt, PATH);
-//         strcat(cnt, filelist->list[i]);
-//         newlist->list[i] = malloc(ID_LEN * sizeof(char));
-//         get_hash_file(cnt, newlist->list[i]);
-//     }
-//     return;
-// }
-
-// // PATH均为相对路径
-// bool compare_file(char* PATH, FileList *filelist){
-//     char sha1[ID_LEN] = {};
-//     get_hash_file(PATH, sha1);
-
-//     for (int i = 0; i < filelist->num; i++){
-//         if (strcmp(sha1, filelist->list[i]) == 0)
-//             return true;
-//     }
-//     return false;
-// }
-
-// // 比较hash之后的表 true无修改, false有修改
-// bool compare_filelist(FileList *filelist1, FileList *filelist2){
-//     int num1 = filelist1->num, num2 = filelist2->num;
-//     if (num1 != num2)
-//         return false;
-//     for (int i = 0; i < num1; i++){
-//         if (!is_in_filelist(filelist1->list[i], filelist2))
-//             return false;
-//     }
-//     return true;
-// }
-
-// // 判断file(已hash)是否在filelist(已hash)中, true在
-// bool is_in_filelist(char *file, FileList *filelist){
-//     int num = filelist->num;
-//     for (int i = 0; i < num; i++){
-//         if (strcmp(file, filelist->list[i]) == 0)
-//             return true;
-//     }
-//     return false;
-// }
-
-// size_t get_file_size(FILE *file){
-//     fseek(file, 0, SEEK_END);
-//     size_t size = ftell(file);
-//     fseek(file, 0, SEEK_SET);
-//     return size;
-// }
-
-// // 将filename存储到.gitm/files中，不检验是否重复
-// void save_file(char *filename){
-//     char src_path[PATH_LEN] = "./";
-//     strcat(src_path, filename);
-
-//     char dest_path[PATH_LEN] = ".gitm/files/";
-//     char id[ID_LEN] = {}; // 这里的id是文件对应的hash值
-//     get_hash_file(src_path, id);
-//     strcat(dest_path, id);
-
-//     int res = copy_file(src_path, dest_path);
-//     assert(res == 0);
-// }
-
-// void get_hash_file(char *PATH, char *sha1){
-//     FILE *file = fopen(PATH, "r");
-//     size_t size = get_file_size(file);
-//     char *buffer = malloc(size * sizeof(char));
-//     assert(buffer != NULL);
-//     fread(buffer, size, sizeof(char), file);
-//     fclose(file);
-//     int res = sha1sum(sha1, buffer, size);
-//     assert(res == 0);
-// }
-
-// void get_hash_directory(char *timestamps, char *sha1){
-//     int res = sha1sum(sha1, (void const *)timestamps, TIMESTAMP_LEN);
-//     assert(res == 0);
-// }
-
-// // 获取头
-// void get_head(char* id){
-//     FILE *file = fopen(".gitm/head.txt", "r");
-//     fscanf(file, "%s", id);
-//     return;
-// }
-
-// void write_head(char *id){
-//     FILE *file = fopen(".gitm/head.txt", "w");
-//     fprintf(file, "%s", id);
-//     fclose(file);
-//     return;
-// }
-
-// // 仅用于测试
-// void print_filelist(FileList *filelist){
-//     for (int i = 0; i < filelist->num; i++){
-//         printf("%02d %s\n", i, filelist->list[i]);
-//     }
-//     return;
-// }

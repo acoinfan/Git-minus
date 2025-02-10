@@ -94,39 +94,4 @@ void print_filetree(FTree *node, int level);
  */
 int compare_filetree(FTree *node1, FTree *node2);
 
-int compare_filetree_ptr(const void *a, const void *b);
-
-int compare_files(const void *a, const void *b);
-// // 只是一个存储所有文件的表，而不包含文件夹
-// void get_fileset(FTree *tree, FList *list);
-
-
-
-
-
-
-
-
-// bool compare_file(char* PATH, FileList *filelist);
-
-// bool is_in_filelist(char *file, FileList *filelist);
-
-// bool compare_filelist(FileList *filelist1, FileList *filelist2);
-
-// size_t get_file_size(FILE *file);
-
-// void save_file(char *filename);
-
-
-
-// void get_hash_directory(char *timestamps, char *sha1);
-
-// void hash_filelist(char *PATH, FileList *filelist, FileList *newlist);
-
-// void print_filelist(FileList *filelist);
-
-// void get_head(char *id);
-
-// void write_head(char *id);
-
 #endif
