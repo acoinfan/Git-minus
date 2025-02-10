@@ -108,13 +108,7 @@ void write_head(char *id, char *PATH){
 
 
 CTree *read_head(CTree *node, char *PATH){
-    FILE *file = fopen(PATH, "r");
-    assert(file != NULL);
-
-    char id[HASH_LEN] = {};
-    fscanf(file, "%s", id);
-    fclose(file);
-    
+    char *id = get_head_id(PATH);
     return search_CTree(node, id);
 }
 
@@ -135,4 +129,14 @@ void print_commit_tree(CTree *node, int level) {
             print_commit_tree(node->subtree[i], level + 1);
         }
     }
+}
+
+char *get_head_id(char *PATH){
+    FILE *file = fopen(PATH, "r");
+    assert(file != NULL);
+
+    static char id[HASH_LEN] = {};
+    fscanf(file, "%s", id);
+    fclose(file);
+    return id;
 }

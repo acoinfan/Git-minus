@@ -48,12 +48,20 @@ void write_log(CTree *node, char *PATH);
 void write_head(char *id, char *PATH);
 
 /** 
- * @brief 从PATH中读取->HEAD
+ * @brief 从PATH中读取->HEAD这个CNode
  * @param node:CTree的根节点
  * @param PATH:一般使用".gitm/head.txt
  * @return 返回指向对应CTree中的节点
  */
 CTree *read_head(CTree *node, char *PATH);
+
+/**
+ * @brief 从PATH中读取->HEAD对应的commit id
+ * @param PATH:一般使用".gitm/head.txt
+ * @return 对应的Commit id指针
+ */
+char *get_head_id(char *PATH);
+
 
 void print_commit_tree(CTree *node, int level);
 #endif

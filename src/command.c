@@ -100,7 +100,12 @@ int checkout(char *id){
 
     FTree *cnt = malloc(sizeof(FTree));
     fill_filetree(".", cnt);
-    if (compare_filetree(cnt, target)){
+
+    FTree *head = malloc(sizeof(FTree));
+    char *head_id = get_head_id(".gitm/head.txt");
+    read_struct(head_id, head);
+
+    if (compare_filetree(cnt, head)){
         ERROR("Dirty Checkout: Ignore\n");
         return -1;
     }
