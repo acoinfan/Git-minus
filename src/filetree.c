@@ -153,14 +153,17 @@ void write_filetree(const char PATH[HASH_LEN], FTree *filetree){
 }
 
 
-void read_struct(const char id[HASH_LEN], FTree *filetree){
+int read_struct(const char id[HASH_LEN], FTree *filetree){
     char PATH[PATH_LEN] = ".gitm/struct/";
     strcat(PATH, id);
     strcat(PATH, ".txt");
     FILE *file = fopen(PATH, "r");
-    assert(file != NULL);
+    if (file == NULL){
+        return -1;
+    }
     read_filetree(file, filetree);
     fclose(file);
+    return 0;
 }
 
 

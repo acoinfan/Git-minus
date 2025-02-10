@@ -80,8 +80,9 @@ void write_struct(const char id[HASH_LEN], FTree *filetree);
  * @brief 根据指定PATH(.gitm/struct/id.txt)初始化对应的FTree, 并启动读取递归
  * @param id:commit id
  * @param filetree:commit对应的需要初始化的filetree
+ * @return 成功0, 失败-1
  */
-void read_struct(const char id[HASH_LEN], FTree *filetree);
+int read_struct(const char id[HASH_LEN], FTree *filetree);
 
 size_t get_file_size(FILE *file);
 

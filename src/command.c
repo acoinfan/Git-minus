@@ -78,25 +78,28 @@ int commit(char *message){
 int checkout(char *id){
     // 一些基础的逻辑判断
     if (!exists(".gitm")){
+        printf("Checkout Error: Invalid repository\n");
         return -1;
     }
     if (!exists(".gitm/log.txt")){
+        printf("Checkout Error: Invalid repository\n");
         return -1;
     }
     if (!exists(".gitm/files")){
+        printf("Checkout Error: Invalid repository\n");
         return -1;
     }
     if (!exists(".gitm/struct")){
+        printf("Checkout Error: Invalid repository\n");
         return -1;
     }
     if (!exists(".gitm/head.txt")){
+        printf("Checkout Error: Invalid repository\n");
         return -1;
     }
 
     FTree *node = malloc(sizeof(FTree));
-    read_struct(id, node);
-
-    if (node == NULL){
+    if (read_struct(id, node)){
         printf("Checkout Error: Invalid commit ID %s\n", id);
         return -1;
     }
@@ -105,7 +108,7 @@ int checkout(char *id){
     checkout_all(node);
 
     write_head(id, ".gitm/head.txt");
-    //printf("Successfully Checkout: ID %s\n", id);
+    printf("Successfully Checkout: ID %s\n", id);
     return 0;
 }
 
