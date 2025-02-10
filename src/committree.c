@@ -71,19 +71,19 @@ CTree *read_log(char *PATH){
     CTree *head = NULL;
 
     while (1){
-        char id[HASH_LEN], parent[HASH_LEN], message[MESSAGE_LEN], timestamp[TIMESTAMP_LEN], mode[MODE_LEN];
+        char id[HASH_LEN], parent[HASH_LEN], message[MESSAGE_LEN], timestamps[TIMESTAMP_LEN], mode[MODE_LEN];
         int res = fscanf(log, "%s %s %s %s\n", id, parent, message, mode);
         if (res != 4)
             break;
 
-        if (fgets(timestamp, TIMESTAMP_LEN, log) == NULL)
+        if (fgets(timestamps, TIMESTAMP_LEN, log) == NULL)
             break;
-        timestamp[strcspn(timestamp, "\n")] = '\0';
+        timestamps[strcspn(timestamps, "\n")] = '\0';
         
         FTree *filetree = malloc(sizeof(FTree));
         assert(filetree != NULL);
         read_filetree(log, filetree);
-        head = insert_CTree(head, parent, id, message, timestamp, mode, filetree);
+        head = insert_CTree(head, parent, id, message, timestamps, mode, filetree);
     }
     fclose(log);
     return head; // 根节点
