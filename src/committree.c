@@ -26,14 +26,10 @@ CTree* insert_CTree(CTree *head, char *parent, char *id, char *message, char *ti
 }
     
 CTree *search_CTree(CTree *cnt, char *id){
-    printf("calling search on id %s\n", id);
-
     if (cnt == NULL){
-        printf("return NULL since base is NULL\n");
         return NULL;
     }
 
-    printf("comparing %s with %s\n", cnt->id, id);
     if (strcmp(cnt->id, id) == 0)
         return cnt;
     else{
@@ -41,12 +37,10 @@ CTree *search_CTree(CTree *cnt, char *id){
         for (int i = 0; i < cnt->num; i++){
             result = search_CTree(cnt->subtree[i], id);
             if (result != NULL){
-                printf("get result\n");
                 return result;
             }
         }
     } 
-    printf("return NULL since not found\n");
     return NULL; 
 }
 
