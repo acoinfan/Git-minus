@@ -27,7 +27,7 @@ int main(int argc, char *argv[]) {
     checkout(argv[2]);
   }
   if (!strcmp(argv[1], "test")){
-    test();
+    test(argv[2]);
   }
   if (!strcmp(argv[1], "clear")){
     clear();

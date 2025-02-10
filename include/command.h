@@ -29,7 +29,7 @@ int checkout(char *id);
 
 void print_log(void);
 
-void test(void);
+void test(char *id);
 
 void clear(void);
 #endif

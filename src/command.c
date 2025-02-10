@@ -58,7 +58,6 @@ int commit(char *message){
 
     // 生成一个新CTree节点
     CTree *Cnode;
-    assert(head != NULL);
     Cnode = new_CNode(id, message, timestamps, mode, head, Fnode);
 
     // 将CTree写入log.txt
@@ -129,22 +128,10 @@ void print_log(void){
     return;
 }
 
-void test(void){
-    FTree *root = malloc(sizeof(FTree));
-    // 假设你已经填充了文件树结构
-    fill_filetree(".", root);
-
-    FTree *new = malloc(sizeof(FTree));
-    read_struct("test1", new);
-
-    printf("\n------test------\n");
-    if(!compare_filetree(root, new)){
-        printf("same!!\n");
-    }
-    else{
-        printf("not same!!\n");
-    }
-    write_struct("test2", new);
+void test(char *id){
+    CTree *base = read_log(".gitm/log.txt");
+    CTree *head = read_head(base, id);
+    printf("---head inf---\nid: %s\n", head->id);
 }
 
 void clear(void){
