@@ -130,7 +130,8 @@ void print_log(void){
 }
 
 void test(char *id){
-    FTree *commit = read_struct(id, commit);
+    FTree *commit = malloc(sizeof(FTree));
+    read_struct(id, commit);
     FTree *cnt = malloc(sizeof(FTree));
     fill_filetree(".", cnt);
     printf("------commit to check------\n");
