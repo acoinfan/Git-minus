@@ -41,5 +41,9 @@ int is_same_filename(Pair *pair1, Pair *pair2){
 int is_same_pair(Pair *pair1, Pair *pair2){
     printf("Pair1: %s---%s\n", pair1->fileName, pair1->hashName);
     printf("Pair2: %s---%s\n", pair2->fileName, pair2->hashName);
-    return (is_same_filename(pair1, pair2) == 0) && (is_same_hashname(pair1, pair2) == 0);
+    if (strcmp(pair1->fileName, pair2->fileName) == 0 && strcmp(pair1->hashName, pair2->hashName) == 0){
+        return 0;
+    }else{
+        return 1;
+    }
 }
