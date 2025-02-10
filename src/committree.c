@@ -33,6 +33,7 @@ CTree *search_CTree(CTree *cnt, char *id){
         return NULL;
     }
 
+    printf("comparing %s with %s\n", cnt->id, id);
     if (strcmp(cnt->id, id) == 0)
         return cnt;
     else{
