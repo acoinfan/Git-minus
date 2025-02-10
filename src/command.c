@@ -1,7 +1,6 @@
 #include "command.h"
 
 int init(void){
-    int res = 0;
     if (!exists(".gitm")){
         make_directory(".gitm");
         clear();
