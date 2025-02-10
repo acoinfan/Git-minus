@@ -99,7 +99,7 @@ int checkout(char *id){
     FTree *cnt = malloc(sizeof(FTree));
     fill_filetree(".", cnt);
     if (compare_filetree(cnt, target)){
-        ERROR("Dirty Checkout: Ignore");
+        ERROR("Dirty Checkout: Ignore\n");
         return -1;
     }
 

@@ -246,7 +246,7 @@ int compare_filetree(FTree *node1, FTree *node2){
     }
 
     for (int i = 0; i < node1->fileNum; i++){
-        if (is_same_pair(node1->fileList[i], node2->fileList[i]) == 0){
+        if (is_same_pair(node1->fileList[i], node2->fileList[i]) != 0){
             return 1;
         }
     }
