@@ -26,6 +26,10 @@ CTree* insert_CTree(CTree *head, char *parent, char *id, char *message, char *ti
 }
     
 CTree *search_CTree(CTree *cnt, char *id){
+    if (cnt == NULL){
+        return NULL;
+    }
+    
     if (strcmp(cnt->id, id) == 0)
         return cnt;
     else{
