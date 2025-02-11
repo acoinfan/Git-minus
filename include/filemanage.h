@@ -9,7 +9,6 @@
 #include "macros.h"
 #include "gitm.h"
 #include "pair.h"
-#include "structures.h"
 
 
 /**
