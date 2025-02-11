@@ -16,8 +16,13 @@ int main(int argc, char *argv[]) {
     init();
   }
   if (!strcmp(argv[1], "commit")){
-    assert(argc == 3);
-    commit(argv[2]);
+    assert(argc <= 3);
+    if (argc == 3){
+      commit(argv[2]);
+    }
+    else{
+      commit("No messsage");
+    }
   }
   if (!strcmp(argv[1], "log")){
     print_log();
