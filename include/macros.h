@@ -8,7 +8,7 @@
 // HASH_LEN = 41
 #define HASH_LEN ((SHA_SUM_LEN) + 1)
 #define MODE_LEN 7
-#define PATH_LEN 1024
-#define FILE_LEN 1024
+#define PATH_LEN 512
+#define FILE_LEN 256
 
 #endif
