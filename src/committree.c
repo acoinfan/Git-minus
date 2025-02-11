@@ -66,9 +66,13 @@ CTree *read_log(char *PATH){
 
     while (1){
         char id[HASH_LEN], parent[HASH_LEN], message[MESSAGE_LEN], timestamps[TIMESTAMP_LEN], mode[MODE_LEN];
-        int res = fscanf(log, "%s %s %s %s\n", id, parent, message, mode);
-        if (res != 4)
+        int res = fscanf(log, "%s %s %s\n", id, parent, mode);
+        if (res != 3)
             break;
+
+        if (fgets(message, TIMESTAMP_LEN, log) == NULL)
+            break;
+        message[strcspn(message, "\n")] = '\0';
 
         if (fgets(timestamps, TIMESTAMP_LEN, log) == NULL)
             break;
@@ -88,10 +92,12 @@ void write_log(CTree *node, char *PATH){
     FILE *file = fopen(PATH, "a");
     assert(file != NULL);
     if (node->parent == NULL){
-        fprintf(file, "%s 0 %s %s\n", node->id, node->message, node->mode);
+        fprintf(file, "%s 0 %s\n", node->id, node->mode);
+        fprintf(file, "%s\n", node->message);
     }
     else{
-        fprintf(file, "%s %s %s %s\n", node->id, node->parent->id, node->message, node->mode);
+        fprintf(file, "%s %s %s\n", node->id, node->parent->id, node->mode);
+        fprintf(file, "%s\n", node->message);
     }
     fprintf(file, "%s\n", node->timestamp);
     fclose(file);
