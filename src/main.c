@@ -21,7 +21,7 @@ int main(int argc, char *argv[]) {
       commit(argv[2]);
     }
     else{
-      commit("No messsage");
+      commit("\"No messsage\"");
     }
   }
   if (!strcmp(argv[1], "log")){
