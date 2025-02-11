@@ -70,7 +70,7 @@ CTree *read_log(char *PATH){
         if (res != 3)
             break;
 
-        if (fgets(message, TIMESTAMP_LEN, log) == NULL)
+        if (fgets(message, MESSAGE_LEN, log) == NULL)
             break;
         message[strcspn(message, "\n")] = '\0';
 
