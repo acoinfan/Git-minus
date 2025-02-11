@@ -95,16 +95,16 @@ void fill_filetree(const char *PATH, FTree *node){
 void print_filetree(FTree *node, int level) {
     // 打印当前目录的路径
     for (int i = 0; i < level; i++) {
-        printf("  ");  // 每一层缩进两个空格
+        ERROR("  ");  // 每一层缩进两个空格
     }
-    printf("[%d] %s/\n", level, node->cwd);  // 打印当前目录的路径
+    ERROR("[%d] %s/\n", level, node->cwd);  // 打印当前目录的路径
 
     // 打印当前目录下的文件
     for (int i = 0; i < node->fileNum; i++) {
         for (int j = 0; j < level + 1; j++) {
-            printf("  ");  // 每个文件前面增加一个缩进
+            ERROR("  ");  // 每个文件前面增加一个缩进
         }
-        printf("- %s\n", node->fileList[i]->fileName);  // 打印文件名
+        ERROR("- %s\n", node->fileList[i]->fileName);  // 打印文件名
     }
 
     // 递归打印子目录
