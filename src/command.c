@@ -63,7 +63,7 @@ int commit(char *message){
 
     // 打印commit成功内容 (DEBUG用)
     //printf("------Commit Inf------\nid: %s\nmessage: %s\ntimestamp: %s\nmode: %s\nparent: %s\n", Cnode->id, Cnode->message, Cnode->timestamp, Cnode->mode, Cnode->parent->id);
-    printf("%s\n", id);
+    fprintf(stdout, "%s\n", id);
     return 0;
 }
 
@@ -126,9 +126,9 @@ void print_log(void){
     
     CTree *cnt = head;
     while(cnt != NULL){
-        printf("commit %s\n", cnt->id);
-        printf("Date: %s\n", cnt->timestamp);
-        printf("%s\n\n", cnt->message);
+        fprintf(stdout, "commit %s\n", cnt->id);
+        fprintf(stdout, "Date: %s\n", cnt->timestamp);
+        fprintf(stdout, "%s\n\n", cnt->message);
         cnt = cnt->parent;
     }
     return;
