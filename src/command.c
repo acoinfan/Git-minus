@@ -139,16 +139,16 @@ void test(char *id){
     read_struct(id, commit);
     FTree *cnt = malloc(sizeof(FTree));
     fill_filetree(".", cnt);
-    printf("------commit to check------\n");
+    ERROR("------commit to check------\n");
     print_filetree(commit, 0);
-    printf("------working dir------\n");
+    ERROR("------working dir------\n");
     print_filetree(cnt, 0);
 
     if (compare_filetree(commit, cnt) == 0){
-        printf("same\n");
+        ERROR("same\n");
     }
     else{
-        printf("not same\n");
+        ERROR("not same\n");
     }
 }
 
