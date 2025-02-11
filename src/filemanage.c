@@ -10,7 +10,7 @@ int commit_file(Pair *file, const char *cwd){
     char cnt_PATH[PATH_LEN] = {};
     link_path(cnt_PATH, cwd, file->fileName);
     if (copy_file(cnt_PATH, commit_PATH)){
-        printf("Commit Error: failed to copy %s to %s\n", cnt_PATH, commit_PATH);
+       ERROR("Commit Error: failed to copy %s to %s\n", cnt_PATH, commit_PATH);
         return -1;
     }
     return 0; 
@@ -20,13 +20,13 @@ int checkout_file(Pair *file, const char *cwd){
     char commit_PATH[PATH_LEN] = ".gitm/files/";
     strcat(commit_PATH, file->hashName);
     if (!exists(commit_PATH)){
-        printf("Checkout Error: failed to find %s\n", commit_PATH);
+        ERROR("Checkout Error: failed to find %s\n", commit_PATH);
         return -1;
     }
     char cnt_PATH[PATH_LEN] = {};
     link_path(cnt_PATH, cwd, file->fileName);
     if (copy_file(commit_PATH, cnt_PATH)){
-        printf("Checkout Error: failed to copy %s to %s\n", commit_PATH, cnt_PATH);
+        ERROR("Checkout Error: failed to copy %s to %s\n", commit_PATH, cnt_PATH);
         return -1;
     }
     return 0;
@@ -82,7 +82,7 @@ int delete_file_or_dir(const char *path) {
 void clean_directory(const char *path) {
     DIR *dir = opendir(path);
     if (!dir) {
-        perror("Failed to open directory");
+        ERROR("Failed to open directory");
         return;
     }
 

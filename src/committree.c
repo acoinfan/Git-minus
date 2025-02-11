@@ -119,9 +119,9 @@ void print_commit_tree(CTree *node, int level) {
 
     // 打印当前节点的 ID
     for (int i = 0; i < level; i++) {
-        printf("    ");  // 打印层级缩进
+        ERROR("    ");  // 打印层级缩进
     }
-    printf("|-- Commit ID: %s\n", node->id);
+    ERROR("|-- Commit ID: %s\n", node->id);
 
     // 如果有子树，则递归打印子树
     if (node->subtree != NULL) {

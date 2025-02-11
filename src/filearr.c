@@ -3,7 +3,6 @@
 void path_to_filearr(FArr *filearr, const char *PATH, int mode){
     DIR *dir = opendir(PATH);
     if (dir == NULL) {
-        perror("opendir");
         return;
     }
 
