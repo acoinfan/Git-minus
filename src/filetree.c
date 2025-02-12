@@ -171,7 +171,7 @@ void read_filetree(FILE *log, FTree *filetree){
     assert(log != NULL);
     assert(filetree != NULL);
     
-    char *cwd = malloc(10000);
+    char *cwd = malloc(PATH_LEN + 1);
     assert(cwd != NULL);
     int fileNum = 0, dirNum = 0;
     fscanf(log, "%s", cwd);

@@ -14,7 +14,7 @@ void pair_init(Pair *pair, const char *fileName, const char *dirPATH){
 }
 
 void pair_write(Pair *pair, char *fileName, char *hashName){
-    assert(strlen(fileName) <= FILE_LEN && strlen(hashName) <= HASH_LEN);
+    assert(strlen(fileName) <= FILE_LEN && strlen(hashName) <= FILE_HASH_LEN);
     assert(pair != NULL);
     strcpy(pair->fileName, fileName);
     strcpy(pair->hashName, hashName);
