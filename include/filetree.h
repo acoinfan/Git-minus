@@ -94,4 +94,20 @@ void print_filetree(FTree *node, int level);
  */
 int compare_filetree(FTree *node1, FTree *node2);
 
+/**
+ * @brief 根据Hashname搜索该文件是否被commit
+ * @param hash:应是文件对应hash
+ * @param file_PATH:文件的绝对路径
+ * @return id数超出限制返回0, 找到返回对应的排序, 未找到返回最后一个已储存文件的排序+1的相反数
+ * @attention 若共有hash-01至hash-05而该文件均不在其中，则返回-6
+ */
+int is_stored(const char *hash, const char *file_PATH);
+
+/**
+ * @brief 比较两个文件是否完全相同(只比较内容)
+ * @param PATH:均是绝对路径
+ * @return 不相同0, 相同1
+ */
+int is_same_file(const char *PATH1, const char *PATH2);
+
 #endif

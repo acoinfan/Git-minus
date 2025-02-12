@@ -5,7 +5,7 @@
 
 typedef struct Pair{
     char fileName[FILE_LEN];
-    char hashName[HASH_LEN];
+    char hashName[FILE_HASH_LEN];
 }Pair;
 
 typedef struct FileTree{

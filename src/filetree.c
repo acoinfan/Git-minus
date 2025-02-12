@@ -186,7 +186,7 @@ void read_filetree(FILE *log, FTree *filetree){
 
     for (int i = 0; i < fileNum; i++){
         // 读取两个Name
-        char fileName[FILE_LEN] = {}, hashName[HASH_LEN] = {};
+        char fileName[FILE_LEN] = {}, hashName[FILE_HASH_LEN] = {};
         fscanf(log, "%s %s", fileName, hashName);
 
         // 写入两个Name
@@ -227,6 +227,17 @@ void encode_filename(char *PATH, char *hashName){
 
     int res = sha1sum(hashName, buffer, size);
     assert(res == 0);
+
+    res = is_stored(hashName, PATH);
+    if (res == 0){
+        ERROR("Invalid Commit: To many files with same hash!\n");
+    }
+    else{
+        res = abs(res);
+        char temp[FILE_HASH_LEN] = {};
+        snprintf(temp, FILE_HASH_LEN, "%s-%03d", hashName, res);
+        strcpy(hashName, temp);
+    }
 }
 
 size_t get_file_size(FILE *file){
@@ -262,4 +273,65 @@ int compare_filetree(FTree *node1, FTree *node2){
     }
 
     return 0;
+}
+
+int is_stored(const char *hash, const char *file_PATH){
+    int count = 1;
+    char cwd[PATH_LEN] = ".gitm/files/";
+    char stored_PATH[PATH_LEN] = ".gitm/files/";
+
+    while (1){
+        if (count > MAX_SAME_ID){
+            return 0;
+        }
+
+        snprintf(stored_PATH, FILE_HASH_LEN, "%s%s-%03d", cwd, hash, count);
+        if (!exists(stored_PATH)){
+            return -count;
+        }
+        else{
+            if (is_same_file(file_PATH, stored_PATH)){
+                return count;
+            }
+            count += 1;
+        }
+    }
+}
+
+int is_same_file(const char *PATH1, const char *PATH2) {
+    FILE *file1 = fopen(PATH1, "rb"); 
+    FILE *file2 = fopen(PATH2, "rb");
+
+    assert(file1 != NULL && file2 != NULL); 
+
+    int size1 = get_file_size(file1);
+    int size2 = get_file_size(file2);
+
+    if (size1 != size2) {
+        fclose(file1);
+        fclose(file2);
+        return 0; 
+    }
+
+    char buffer1[1024], buffer2[1024];
+    size_t bytes_read1, bytes_read2;
+
+    while (1) {
+        bytes_read1 = fread(buffer1, 1, sizeof(buffer1), file1);
+        bytes_read2 = fread(buffer2, 1, sizeof(buffer2), file2);
+
+        if (bytes_read1 != bytes_read2 || memcmp(buffer1, buffer2, bytes_read1) != 0) {
+            fclose(file1);
+            fclose(file2);
+            return 0;
+        }
+
+        if (feof(file1)) {
+            break;
+        }
+    }
+
+    fclose(file1);
+    fclose(file2);
+    return 1;
 }
