@@ -287,10 +287,12 @@ int is_stored(const char *hash, const char *file_PATH){
 
         snprintf(stored_PATH, FILE_HASH_LEN, "%s%s-%03d", cwd, hash, count);
         if (!exists(stored_PATH)){
+            printf("returning -%d since not exist file\n", count);
             return -count;
         }
         else{
             if (is_same_file(file_PATH, stored_PATH)){
+                printf("returning %d since find the same file\n", count);
                 return count;
             }
             count += 1;
@@ -311,6 +313,7 @@ int is_same_file(const char *PATH1, const char *PATH2) {
     if (size1 != size2) {
         fclose(file1);
         fclose(file2);
+        printf("no same\n");
         return 0; 
     }
 
@@ -324,6 +327,7 @@ int is_same_file(const char *PATH1, const char *PATH2) {
         if (bytes_read1 != bytes_read2 || memcmp(buffer1, buffer2, bytes_read1) != 0) {
             fclose(file1);
             fclose(file2);
+            printf("no same\n");
             return 0;
         }
 
