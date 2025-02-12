@@ -286,6 +286,7 @@ int is_stored(const char *hash, const char *file_PATH){
         }
 
         snprintf(stored_PATH, FILE_HASH_LEN, "%s%s-%03d", cwd, hash, count);
+        printf("detecting: %s\n", stored_PATH);
         if (!exists(stored_PATH)){
             printf("returning -%d since not exist file\n", count);
             return -count;
