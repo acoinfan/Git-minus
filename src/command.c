@@ -124,12 +124,15 @@ void print_log(void){
     CTree *head = read_head(base, ".gitm/head.txt");
     
     CTree *cnt = head;
-    while(cnt != NULL){
+    while(cnt != NULL && cnt->parent != NULL){
         fprintf(stdout, "commit %s\n", cnt->id);
         fprintf(stdout, "Date: %s\n", cnt->timestamp);
         fprintf(stdout, "%s\n\n", cnt->message);
         cnt = cnt->parent;
     }
+    fprintf(stdout, "commit %s\n", cnt->id);
+    fprintf(stdout, "Date: %s\n", cnt->timestamp);
+    fprintf(stdout, "%s\n", cnt->message);
     return;
 }
 
