@@ -287,14 +287,11 @@ int is_stored(const char *hash, const char *file_PATH){
 
         // 这里的3
         sprintf(stored_PATH, "%s%s-%0*d", cwd, hash, ID_WIDTH, count);
-        printf("detecting: %s\n", stored_PATH);
         if (!exists(stored_PATH)){
-            printf("returning -%d since not exist file\n", count);
             return -count;
         }
         else{
             if (is_same_file(file_PATH, stored_PATH)){
-                printf("returning %d since find the same file\n", count);
                 return count;
             }
             count += 1;
@@ -303,7 +300,6 @@ int is_stored(const char *hash, const char *file_PATH){
 }
 
 int is_same_file(const char *PATH1, const char *PATH2) {
-    printf("comparing %s -- %s\n", PATH1, PATH2);
     FILE *file1 = fopen(PATH1, "rb"); 
     FILE *file2 = fopen(PATH2, "rb");
 
@@ -315,7 +311,6 @@ int is_same_file(const char *PATH1, const char *PATH2) {
     if (size1 != size2) {
         fclose(file1);
         fclose(file2);
-        printf("no same\n");
         return 0; 
     }
 
@@ -329,7 +324,6 @@ int is_same_file(const char *PATH1, const char *PATH2) {
         if (bytes_read1 != bytes_read2 || memcmp(buffer1, buffer2, bytes_read1) != 0) {
             fclose(file1);
             fclose(file2);
-            printf("no same\n");
             return 0;
         }
 
@@ -340,6 +334,5 @@ int is_same_file(const char *PATH1, const char *PATH2) {
 
     fclose(file1);
     fclose(file2);
-    printf("same\n");
     return 1;
 }
