@@ -11,8 +11,9 @@
 #define PATH_LEN 256
 #define FILE_LEN 128
 
-// 三位数加4以此类推
-#define FILE_HASH_LEN ((HASH_LEN) + 4)
+
+#define ID_WIDTH 3
+#define FILE_HASH_LEN ((HASH_LEN) + (ID_WIDTH) + 1)
 #define MAX_SAME_ID 999
 
 

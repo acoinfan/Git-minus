@@ -235,7 +235,7 @@ void encode_filename(char *PATH, char *hashName){
     else{
         res = abs(res);
         char temp[FILE_HASH_LEN] = {};
-        snprintf(temp, FILE_HASH_LEN, "%s-%03d", hashName, res);
+        sprintf(temp, "%s-%0*d", hashName, ID_WIDTH, res);
         strcpy(hashName, temp);
     }
 }
@@ -285,8 +285,8 @@ int is_stored(const char *hash, const char *file_PATH){
             return 0;
         }
 
-        printf("cwd: %s\n, hash: %s\n, count: %d\n", cwd, hash, count);
-        sprintf(stored_PATH, "%s%s-%03d", cwd, hash, count);
+        // 这里的3
+        sprintf(stored_PATH, "%s%s-%0*d", cwd, hash, ID_WIDTH, count);
         printf("detecting: %s\n", stored_PATH);
         if (!exists(stored_PATH)){
             printf("returning -%d since not exist file\n", count);
