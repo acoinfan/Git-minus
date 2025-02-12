@@ -299,6 +299,7 @@ int is_stored(const char *hash, const char *file_PATH){
 }
 
 int is_same_file(const char *PATH1, const char *PATH2) {
+    printf("comparing %s -- %s\n", PATH1, PATH2);
     FILE *file1 = fopen(PATH1, "rb"); 
     FILE *file2 = fopen(PATH2, "rb");
 
@@ -333,5 +334,6 @@ int is_same_file(const char *PATH1, const char *PATH2) {
 
     fclose(file1);
     fclose(file2);
+    printf("same\n");
     return 1;
 }
