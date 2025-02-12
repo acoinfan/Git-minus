@@ -61,8 +61,7 @@ int commit(char *message){
     // 将文件存储进files文件夹
     commit_all(Fnode);
 
-    // 打印commit成功内容 (DEBUG用)
-    //printf("------Commit Inf------\nid: %s\nmessage: %s\ntimestamp: %s\nmode: %s\nparent: %s\n", Cnode->id, Cnode->message, Cnode->timestamp, Cnode->mode, Cnode->parent->id);
+    // 打印commit成功内容
     fprintf(stdout, "%s\n", id);
     return 0;
 }
