@@ -43,7 +43,7 @@ int commit(char *message){
     char id[HASH_LEN] = {}, timestamps[TIMESTAMP_LEN] = {}, mode[MODE_LEN] = "commit", cal_hash[TIMESTAMP_LEN + ID_WIDTH + 1];
     timestamp(timestamps);
     sprintf(cal_hash, "%s-%0*d", timestamps, ID_WIDTH, count);
-    ERROR("using %s to calculate hash\n", cal_hash);
+    // ERROR("using %s to calculate hash\n", cal_hash);
     sha1sum(id, cal_hash, TIMESTAMP_LEN + ID_WIDTH + 1);
 
     // 将工作文件夹中的文件存储在FTree中
