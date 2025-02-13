@@ -62,6 +62,7 @@ CTree *read_head(CTree *node, char *PATH);
  */
 char *get_head_id(char *PATH);
 
+int count_commit(CTree *node);
 
 void print_commit_tree(CTree *node, int level);
 #endif

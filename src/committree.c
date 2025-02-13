@@ -146,3 +146,14 @@ char *get_head_id(char *PATH){
     fclose(file);
     return id;
 }
+
+int count_commit(CTree *node){
+    int res = 1;
+    if (node == NULL){
+        return 0;
+    }
+    for (int i = 0; i < node->num; i++){
+        res = res + count_commit(node->subtree[i]);
+    }
+    return res;
+}

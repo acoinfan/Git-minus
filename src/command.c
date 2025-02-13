@@ -37,11 +37,13 @@ int commit(char *message){
     // 利用log.txt构建CTree
     CTree *base = read_log(".gitm/log.txt");
     CTree *head = read_head(base, ".gitm/head.txt");
+    int count = count_commit(base);
 
     // 获取本次提交的信息(无需获取parent)
-    char id[HASH_LEN] = {}, timestamps[TIMESTAMP_LEN] = {}, mode[MODE_LEN] = "commit";
+    char id[HASH_LEN] = {}, timestamps[TIMESTAMP_LEN] = {}, mode[MODE_LEN] = "commit", cal_hash[TIMESTAMP_LEN + ID_WIDTH + 1];
     timestamp(timestamps);
-    sha1sum(id, timestamps, TIMESTAMP_LEN);
+    sprintf(cal_hash, "%s-%0*d", timestamps, ID_WIDTH, count);
+    sha1sum(id, cal_hash, TIMESTAMP_LEN + ID_WIDTH + 1);
 
     // 将工作文件夹中的文件存储在FTree中
     FTree *Fnode = malloc(sizeof(FTree));
