@@ -18,3 +18,14 @@
 8. structures.h              -- define struct CTree, FTree, Pair, etc...
 9. macros.h                  -- Macros for this program
 10. gitm.h/utils.c           -- methods to create or remover directory, hash a file... 
+
+## Build
+this Program is built by cmake
+
+```shell
+# create Makefile
+mkdir build && cd build && cmake ..
+# compile
+make
+```
+
